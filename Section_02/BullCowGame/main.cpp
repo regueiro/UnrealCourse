@@ -42,6 +42,7 @@ bool AskToPlayAgain()
 
 void PlayGame()
 {
+	BCGame.Reset();
 
 	// loop until all turns are exausted
 	auto MaxTries = BCGame.GetMaxTries();
