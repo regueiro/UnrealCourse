@@ -51,11 +51,14 @@ void PlayGame()
 
 int main()
 {
-	PrintIntro();
-	
-	PlayGame();
+	bool KeepPlaying;
 
-	AskToPlayAgain();
-	
+	do {
+		PrintIntro();
+		PlayGame();
+		KeepPlaying = AskToPlayAgain();
+
+	}  while (KeepPlaying);
+		
 	return 0;
 }
