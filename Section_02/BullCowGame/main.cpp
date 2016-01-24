@@ -30,6 +30,15 @@ void PrintGuess(string Guess)
 	cout << endl;
 }
 
+bool AskToPlayAgain()
+{
+	cout << "Do you want to play again? ";
+	string Response = "";
+	getline(cin, Response);
+
+	return Response[0] == 'y' || Response[0] == 'Y';
+}
+
 void PlayGame()
 {
 	// loop until all turns are exausted
@@ -45,6 +54,8 @@ int main()
 	PrintIntro();
 	
 	PlayGame();
+
+	AskToPlayAgain();
 	
 	return 0;
 }
