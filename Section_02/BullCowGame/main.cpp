@@ -2,6 +2,8 @@
 #include <string>
 #include "FBullCowGame.h"
 
+FBullCowGame BCGame;
+
 //introduce the game
 void PrintIntro()
 {
@@ -16,7 +18,7 @@ void PrintIntro()
 std::string GetGess()
 {
 	// get a guess from the player
-	std::cout << "Enter your guess: ";
+	std::cout << "Try " << BCGame.GetCurrentTry() << ". Enter your guess: ";
 	std::string Guess;
 	getline(std::cin, Guess);
 
@@ -40,12 +42,10 @@ bool AskToPlayAgain()
 
 void PlayGame()
 {
-	FBullCowGame BCGame;
-
 
 	// loop until all turns are exausted
-	constexpr auto TURNS = 5;
-	for (auto i = 0; i < TURNS; i++) {
+	auto MaxTries = BCGame.GetMaxTries();
+	for (auto i = 1; i <= MaxTries; i++) {
 		auto Guess = GetGess();
 		PrintGuess(Guess);
 	}
