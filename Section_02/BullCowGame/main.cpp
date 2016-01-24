@@ -1,40 +1,39 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
 
 //introduce the game
 void PrintIntro()
 {
 	constexpr auto WORD_LENGTH = 9;
 
-	cout << "Welcome to Bulls and Cows, a fun word game.\n";
-	cout << "Can you guess the " << WORD_LENGTH;
-	cout << " letter isogram I'm thinking of?\n";
-	cout << endl;
+	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
+	std::cout << "Can you guess the " << WORD_LENGTH;
+	std::cout << " letter isogram I'm thinking of?\n";
+	std::cout << std::endl;
 }
 
-string GetGess()
+std::string GetGess()
 {
 	// get a guess from the player
-	cout << "Enter your guess: ";
-	string Guess;
-	getline(cin, Guess);
+	std::cout << "Enter your guess: ";
+	std::string Guess;
+	getline(std::cin, Guess);
 
 	return Guess;
 }
 
-void PrintGuess(string Guess)
+void PrintGuess(std::string Guess)
 {
-	cout << "Your guess was " << Guess << endl;
-	cout << endl;
+	std::cout << "Your guess was " << Guess << std::endl;
+	std::cout << std::endl;
 }
 
 bool AskToPlayAgain()
 {
-	cout << "Do you want to play again? ";
-	string Response = "";
-	getline(cin, Response);
+	std::cout << "Do you want to play again? ";
+	std::string Response = "";
+	getline(std::cin, Response);
 
 	return Response[0] == 'y' || Response[0] == 'Y';
 }
