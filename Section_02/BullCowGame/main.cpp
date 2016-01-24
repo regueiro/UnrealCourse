@@ -14,29 +14,37 @@ void PrintIntro()
 	cout << endl;
 }
 
-// get a guess from the player
 string GetGess()
 {
+	// get a guess from the player
 	cout << "Enter your guess: ";
 	string Guess;
 	getline(cin, Guess);
 
-	// print the guess back to them
-	cout << "Your guess was " << Guess << endl;
-
 	return Guess;
+}
+
+void PrintGuess(string Guess)
+{
+	cout << "Your guess was " << Guess << endl;
+	cout << endl;
+}
+
+void PlayGame()
+{
+	// loop until all turns are exausted
+	constexpr auto TURNS = 5;
+	for (auto i = 0; i < TURNS; i++) {
+		auto Guess = GetGess();
+		PrintGuess(Guess);
+	}
 }
 
 int main()
 {
 	PrintIntro();
 	
-	// loop until all turns are exausted
-	constexpr auto TURNS = 5;
-	for (auto i = 0; i < TURNS;i++) {
-		GetGess();
-		cout << endl;
-	}
+	PlayGame();
 	
 	return 0;
 }
