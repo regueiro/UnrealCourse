@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-
+#include "FBullCowGame.h"
 
 //introduce the game
 void PrintIntro()
@@ -40,6 +40,9 @@ bool AskToPlayAgain()
 
 void PlayGame()
 {
+	FBullCowGame BCGame;
+
+
 	// loop until all turns are exausted
 	constexpr auto TURNS = 5;
 	for (auto i = 0; i < TURNS; i++) {
