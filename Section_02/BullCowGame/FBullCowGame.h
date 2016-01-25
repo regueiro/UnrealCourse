@@ -1,21 +1,24 @@
 #pragma once
 #include <string>
 
+using FString = std::string;
+using int32 = int;
+
 class FBullCowGame
 {
 public:
 	FBullCowGame();
 
-	int GetMaxTries() const;
-	int GetCurrentTry() const;
+	int32 GetMaxTries() const;
+	int32 GetCurrentTry() const;
 	bool IsGameWon() const;
 
 	void Reset();
-	bool CheckGuessValidity(std::string Guess);
+	bool CheckGuessValidity(FString Guess);
 
 
 private:
-	int CurrentTry;
-	int MaxTries;
-	bool IsIsogram(std::string Word) const;
+	int32 CurrentTry;
+	int32 MaxTries;
+	bool IsIsogram(FString Word) const;
 };

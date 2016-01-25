@@ -1,5 +1,7 @@
 #include "FBullCowGame.h"
 
+using int32 = int;
+
 FBullCowGame::FBullCowGame()
 {
 	Reset();
@@ -11,12 +13,12 @@ void FBullCowGame::Reset()
 	CurrentTry = 1;
 }
 
-int FBullCowGame::GetMaxTries() const
+int32 FBullCowGame::GetMaxTries() const
 {
 	return MaxTries;
 }
 
-int FBullCowGame::GetCurrentTry() const
+int32 FBullCowGame::GetCurrentTry() const
 {
 	return CurrentTry;
 }
@@ -26,12 +28,12 @@ bool FBullCowGame::IsGameWon() const
 	return false;
 }
 
-bool FBullCowGame::CheckGuessValidity(std::string Guess)
+bool FBullCowGame::CheckGuessValidity(FString Guess)
 {
 	return false;
 }
 
-bool FBullCowGame::IsIsogram(std::string Word) const
+bool FBullCowGame::IsIsogram(FString Word) const
 {
 	return false;
 }

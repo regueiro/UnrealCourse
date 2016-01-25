@@ -2,7 +2,10 @@
 #include <string>
 #include "FBullCowGame.h"
 
+using FText = std::string;
+
 FBullCowGame BCGame;
+
 
 //introduce the game
 void PrintIntro()
@@ -15,17 +18,17 @@ void PrintIntro()
 	std::cout << std::endl;
 }
 
-std::string GetGess()
+FText GetGess()
 {
 	// get a guess from the player
 	std::cout << "Try " << BCGame.GetCurrentTry() << ". Enter your guess: ";
-	std::string Guess;
+	FText Guess;
 	getline(std::cin, Guess);
 
 	return Guess;
 }
 
-void PrintGuess(std::string Guess)
+void PrintGuess(FText Guess)
 {
 	std::cout << "Your guess was " << Guess << std::endl;
 	std::cout << std::endl;
@@ -34,7 +37,7 @@ void PrintGuess(std::string Guess)
 bool AskToPlayAgain()
 {
 	std::cout << "Do you want to play again? ";
-	std::string Response = "";
+	FText Response = "";
 	getline(std::cin, Response);
 
 	return Response[0] == 'y' || Response[0] == 'Y';
