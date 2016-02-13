@@ -35,16 +35,16 @@ bool FBullCowGame::IsGameWon() const
 	return false;
 }
 
-bool FBullCowGame::CheckGuessValidity(FString Guess) const
+EWordStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
-	return true;
+	return EWordStatus::OK;
 }
 
-BullCowCount FBullCowGame::SubmitGuess(FString Guess)
+FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 {
 	CurrentTry++;
 
-	BullCowCount Count;
+	FBullCowCount Count;
 
 	for (int32 i = 0; i < Guess.length(); i++) {
 		for (int32 j = 0; j < HiddenWord.length(); j++) {

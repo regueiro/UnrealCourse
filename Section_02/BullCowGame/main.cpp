@@ -29,7 +29,7 @@ FText GetGess()
 	return Guess;
 }
 
-void PrintBullCowCount(BullCowCount Count)
+void PrintBullCowCount(FBullCowCount Count)
 {
 	std::cout << "Bulls: " << Count.Bulls << ", Cows: " << Count.Cows <<std::endl;
 	std::cout << std::endl;
@@ -53,7 +53,7 @@ void PlayGame()
 	for (auto i = 1; i <= MaxTries; i++) {
 		auto Guess = GetGess();
 
-		BullCowCount Count = BCGame.SubmitGuess(Guess);
+		FBullCowCount Count = BCGame.SubmitGuess(Guess);
 		PrintBullCowCount(Count);
 	}
 }
