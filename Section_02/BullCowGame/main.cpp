@@ -82,6 +82,8 @@ void PlayGame()
 		FBullCowCount Count = BCGame.SubmitValidGuess(Guess);
 		PrintBullCowCount(Count);
 	}
+
+	PrintGameSummary();
 }
 
 int main()
@@ -91,7 +93,6 @@ int main()
 	do {
 		PrintIntro();
 		PlayGame();
-		PrintGameSummary();
 		KeepPlaying = AskToPlayAgain();
 
 	} while (KeepPlaying);

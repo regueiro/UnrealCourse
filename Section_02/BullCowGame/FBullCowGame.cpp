@@ -1,4 +1,6 @@
 #include "FBullCowGame.h"
+#include <map>
+#define TMap std::map
 
 using int32 = int;
 
@@ -82,16 +84,25 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 
 bool FBullCowGame::IsIsogram(FString Word) const
 {
+	TMap<char, bool> SeenLetter;
+
+	for (char c : Word) {
+		c = tolower(c);
+		if (SeenLetter[c]) {
+			return false;
+		}
+		else {
+			SeenLetter[c] = true;
+		}
+	}
+
 	return true;
 }
 
 bool FBullCowGame::IsLowerCase(FString Word) const
 {
-	for (int i = 0; i < Word.length(); i++)
-	{
-		char c = Word[i];
-		if (isupper(c) == true)
-		{
+	for (char c : Word) {
+		if (isupper(c) == true) {
 			return false;
 		}
 	}
