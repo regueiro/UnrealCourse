@@ -9,6 +9,7 @@ FBullCowGame::FBullCowGame()
 
 void FBullCowGame::Reset()
 {
+	bGameIsWon = false;
 	MaxTries = 8;
 	CurrentTry = 1;
 
@@ -32,7 +33,7 @@ int32 FBullCowGame::GetHiddenWordLength() const
 
 bool FBullCowGame::IsGameWon() const
 {
-	return false;
+	return bGameIsWon;
 }
 
 EWordStatus FBullCowGame::CheckGuessValidity(FString Guess) const
@@ -61,12 +62,19 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 			if (Guess[GuessChar] == HiddenWord[HiddenWordChar]) {
 				if (GuessChar == HiddenWordChar) {
 					Count.Bulls++;
-				} else {
+				}
+				else {
 					Count.Cows++;
 				}
-				
+
 			}
 		}
+	}
+
+	if (Count.Bulls == GetHiddenWordLength()) {
+		bGameIsWon = true;
+	} else {
+		bGameIsWon = false;
 	}
 
 	return Count;

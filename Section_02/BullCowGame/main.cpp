@@ -11,7 +11,7 @@ FBullCowGame BCGame;
 //introduce the game
 void PrintIntro()
 {
-std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
+	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
 	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
 	std::cout << " letter isogram I'm thinking of?\n";
 	std::cout << std::endl;
@@ -21,10 +21,10 @@ FText GetGess()
 {
 	FText Guess;
 	EWordStatus Status;
-	do  {
+	do {
 		// get a guess from the player
 		std::cout << "Try " << BCGame.GetCurrentTry() << ". Enter your guess: ";
-		
+
 		getline(std::cin, Guess);
 
 		Status = BCGame.CheckGuessValidity(Guess);
@@ -50,13 +50,13 @@ FText GetGess()
 
 void PrintBullCowCount(FBullCowCount Count)
 {
-	std::cout << "Bulls: " << Count.Bulls << ", Cows: " << Count.Cows <<std::endl;
+	std::cout << "Bulls: " << Count.Bulls << ", Cows: " << Count.Cows << std::endl;
 	std::cout << std::endl;
 }
 
 bool AskToPlayAgain()
 {
-	std::cout << "Do you want to play again? ";
+	std::cout << "Do you want to play again (y/n)?";
 	FText Response = "";
 	getline(std::cin, Response);
 
@@ -67,11 +67,9 @@ void PlayGame()
 {
 	BCGame.Reset();
 
-	// loop until all turns are exausted
-	auto MaxTries = BCGame.GetMaxTries();
-	for (auto i = 1; i <= MaxTries; i++) {
+	while (!BCGame.IsGameWon() && !BCGame.GetCurrentTry() <= BCGame.GetMaxTries()) {
 		auto Guess = GetGess();
-		
+
 		FBullCowCount Count = BCGame.SubmitValidGuess(Guess);
 		PrintBullCowCount(Count);
 	}
@@ -86,7 +84,7 @@ int main()
 		PlayGame();
 		KeepPlaying = AskToPlayAgain();
 
-	}  while (KeepPlaying);
-		
+	} while (KeepPlaying);
+
 	return 0;
 }
