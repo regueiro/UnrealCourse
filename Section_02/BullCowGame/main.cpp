@@ -63,6 +63,15 @@ bool AskToPlayAgain()
 	return Response[0] == 'y' || Response[0] == 'Y';
 }
 
+void PrintGameSummary()
+{
+	if (BCGame.IsGameWon()) {
+		std::cout << "YOU WON! Well done." << std::endl;
+	} else {
+		std::cout << "Better luck next time." << std::endl;
+	}
+}
+
 void PlayGame()
 {
 	BCGame.Reset();
@@ -82,6 +91,7 @@ int main()
 	do {
 		PrintIntro();
 		PlayGame();
+		PrintGameSummary();
 		KeepPlaying = AskToPlayAgain();
 
 	} while (KeepPlaying);
