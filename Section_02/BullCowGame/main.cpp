@@ -52,7 +52,7 @@ void PlayGame()
 	auto MaxTries = BCGame.GetMaxTries();
 	for (auto i = 1; i <= MaxTries; i++) {
 		auto Guess = GetGess();
-
+		BCGame.CheckGuessValidity(Guess);
 		FBullCowCount Count = BCGame.SubmitGuess(Guess);
 		PrintBullCowCount(Count);
 	}

@@ -37,8 +37,18 @@ bool FBullCowGame::IsGameWon() const
 
 EWordStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
+	if (!IsIsogram(Guess)) {
+		return EWordStatus::Not_Isogram;
+	}
+	if (Guess.length() != GetHiddenWordLength()) {
+		return EWordStatus::Wrong_Lenght;
+	}
+	if (!IsLowerCase(Guess)) {
+		return EWordStatus::Not_Lowercase;
+	}
 	return EWordStatus::OK;
 }
+
 
 FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 {
@@ -65,4 +75,17 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 bool FBullCowGame::IsIsogram(FString Word) const
 {
 	return false;
+}
+
+bool FBullCowGame::IsLowerCase(FString Word) const
+{
+	for (int i = 0; i < Word.length(); i++)
+	{
+		char c = Word[i];
+		if (isupper(c) == true)
+		{
+			return false;
+		}
+	}
+	return true;
 }
