@@ -11,9 +11,7 @@ FBullCowGame BCGame;
 //introduce the game
 void PrintIntro()
 {
-	constexpr auto WORD_LENGTH = 9;
-
-	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
+std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
 	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
 	std::cout << " letter isogram I'm thinking of?\n";
 	std::cout << std::endl;
@@ -21,11 +19,12 @@ void PrintIntro()
 
 FText GetGess()
 {
-	EWordStatus Status = EWordStatus::Invalid;
+	FText Guess;
+	EWordStatus Status;
 	do  {
 		// get a guess from the player
 		std::cout << "Try " << BCGame.GetCurrentTry() << ". Enter your guess: ";
-		FText Guess;
+		
 		getline(std::cin, Guess);
 
 		Status = BCGame.CheckGuessValidity(Guess);
@@ -40,11 +39,13 @@ FText GetGess()
 			std::cout << Guess << " is not lowercase. Please enter all lowercase letters." << std::endl;
 			break;
 		default:
-			return Guess;
+			break;
 		}
 		std::cout << std::endl;
 
 	} while (Status != EWordStatus::OK);
+
+	return Guess;
 }
 
 void PrintBullCowCount(FBullCowCount Count)
@@ -71,7 +72,7 @@ void PlayGame()
 	for (auto i = 1; i <= MaxTries; i++) {
 		auto Guess = GetGess();
 		
-		FBullCowCount Count = BCGame.SubmitGuess(Guess);
+		FBullCowCount Count = BCGame.SubmitValidGuess(Guess);
 		PrintBullCowCount(Count);
 	}
 }

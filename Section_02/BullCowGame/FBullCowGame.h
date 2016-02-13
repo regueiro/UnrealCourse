@@ -31,7 +31,7 @@ public:
 	EWordStatus CheckGuessValidity(FString Guess) const;
 
 	void Reset();
-	FBullCowCount SubmitGuess(FString Guess);
+	FBullCowCount SubmitValidGuess(FString Guess);
 
 
 private:

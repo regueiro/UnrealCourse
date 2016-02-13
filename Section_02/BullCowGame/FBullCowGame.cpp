@@ -50,16 +50,16 @@ EWordStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 }
 
 
-FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
+FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 {
 	CurrentTry++;
 
 	FBullCowCount Count;
 
-	for (int32 i = 0; i < Guess.length(); i++) {
-		for (int32 j = 0; j < HiddenWord.length(); j++) {
-			if (Guess[i] == HiddenWord[j]) {
-				if (i == j) {
+	for (int32 GuessChar = 0; GuessChar < Guess.length(); GuessChar++) {
+		for (int32 HiddenWordChar = 0; HiddenWordChar < HiddenWord.length(); HiddenWordChar++) {
+			if (Guess[GuessChar] == HiddenWord[HiddenWordChar]) {
+				if (GuessChar == HiddenWordChar) {
 					Count.Bulls++;
 				} else {
 					Count.Cows++;
