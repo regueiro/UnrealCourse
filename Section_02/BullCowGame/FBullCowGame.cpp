@@ -74,7 +74,7 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 
 bool FBullCowGame::IsIsogram(FString Word) const
 {
-	return false;
+	return true;
 }
 
 bool FBullCowGame::IsLowerCase(FString Word) const

@@ -21,12 +21,30 @@ void PrintIntro()
 
 FText GetGess()
 {
-	// get a guess from the player
-	std::cout << "Try " << BCGame.GetCurrentTry() << ". Enter your guess: ";
-	FText Guess;
-	getline(std::cin, Guess);
+	EWordStatus Status = EWordStatus::Invalid;
+	do  {
+		// get a guess from the player
+		std::cout << "Try " << BCGame.GetCurrentTry() << ". Enter your guess: ";
+		FText Guess;
+		getline(std::cin, Guess);
 
-	return Guess;
+		Status = BCGame.CheckGuessValidity(Guess);
+		switch (Status) {
+		case EWordStatus::Wrong_Lenght:
+			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word." << std::endl;
+			break;
+		case EWordStatus::Not_Isogram:
+			std::cout << Guess << " is not an isogram. Please enter an isogram." << std::endl;
+			break;
+		case EWordStatus::Not_Lowercase:
+			std::cout << Guess << " is not lowercase. Please enter all lowercase letters." << std::endl;
+			break;
+		default:
+			return Guess;
+		}
+		std::cout << std::endl;
+
+	} while (Status != EWordStatus::OK);
 }
 
 void PrintBullCowCount(FBullCowCount Count)
@@ -52,7 +70,7 @@ void PlayGame()
 	auto MaxTries = BCGame.GetMaxTries();
 	for (auto i = 1; i <= MaxTries; i++) {
 		auto Guess = GetGess();
-		BCGame.CheckGuessValidity(Guess);
+		
 		FBullCowCount Count = BCGame.SubmitGuess(Guess);
 		PrintBullCowCount(Count);
 	}
