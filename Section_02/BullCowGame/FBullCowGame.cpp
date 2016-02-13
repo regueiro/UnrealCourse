@@ -25,12 +25,17 @@ int32 FBullCowGame::GetCurrentTry() const
 	return CurrentTry;
 }
 
+int32 FBullCowGame::GetHiddenWordLength() const
+{
+	return HiddenWord.length();
+}
+
 bool FBullCowGame::IsGameWon() const
 {
 	return false;
 }
 
-bool FBullCowGame::CheckGuessValidity(FString Guess)
+bool FBullCowGame::CheckGuessValidity(FString Guess) const
 {
 	return true;
 }
