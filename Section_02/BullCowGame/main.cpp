@@ -3,6 +3,7 @@
 #include "FBullCowGame.h"
 
 using FText = std::string;
+using int32 = int;
 
 FBullCowGame BCGame;
 
@@ -28,9 +29,9 @@ FText GetGess()
 	return Guess;
 }
 
-void PrintGuess(FText Guess)
+void PrintBullCowCount(BullCowCount Count)
 {
-	std::cout << "Your guess was " << Guess << std::endl;
+	std::cout << "Bulls: " << Count.Bulls << ", Cows: " << Count.Cows <<std::endl;
 	std::cout << std::endl;
 }
 
@@ -51,7 +52,9 @@ void PlayGame()
 	auto MaxTries = BCGame.GetMaxTries();
 	for (auto i = 1; i <= MaxTries; i++) {
 		auto Guess = GetGess();
-		PrintGuess(Guess);
+
+		BullCowCount Count = BCGame.SubmitGuess(Guess);
+		PrintBullCowCount(Count);
 	}
 }
 

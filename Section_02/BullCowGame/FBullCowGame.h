@@ -4,6 +4,12 @@
 using FString = std::string;
 using int32 = int;
 
+struct BullCowCount
+{
+	int32 Bulls = 0;
+	int32 Cows = 0;
+};
+
 class FBullCowGame
 {
 public:
@@ -16,9 +22,13 @@ public:
 	void Reset();
 	bool CheckGuessValidity(FString Guess);
 
+	BullCowCount SubmitGuess(FString Guess);
+
 
 private:
 	int32 CurrentTry;
 	int32 MaxTries;
+	FString HiddenWord;
+
 	bool IsIsogram(FString Word) const;
 };
