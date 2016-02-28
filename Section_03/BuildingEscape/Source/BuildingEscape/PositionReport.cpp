@@ -20,8 +20,9 @@ void UPositionReport::BeginPlay()
 	Super::BeginPlay();
 
 	auto OwnerName = GetOwner()->GetName();
+	auto OwnerLocation = GetOwner()->GetTransform().GetLocation().ToString();
 
-	UE_LOG(LogTemp, Warning, TEXT("Position report for %s!"), *OwnerName)
+	UE_LOG(LogTemp, Warning, TEXT("%s is at %s"), *OwnerName, *OwnerLocation);
 }
 
 
