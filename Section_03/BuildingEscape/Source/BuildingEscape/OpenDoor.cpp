@@ -30,7 +30,11 @@ void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
 
-
+	auto PlayerController = GetWorld()->GetFirstPlayerController();
+	
+	if (PlayerController) {
+		Pawn = PlayerController->GetPawn();
+	}
 }
 
 
