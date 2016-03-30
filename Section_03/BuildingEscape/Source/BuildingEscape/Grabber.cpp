@@ -38,7 +38,7 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT ViewPointLocation, OUT ViewPointRotation);
 
-	UE_LOG(LogTemp, Warning, TEXT("Location %s, Rotation %s"), *ViewPointLocation.ToString(), *ViewPointRotation.ToString());
+	//UE_LOG(LogTemp, Warning, TEXT("Location %s, Rotation %s"), *ViewPointLocation.ToString(), *ViewPointRotation.ToString());
 
 	// Draw a red trace in the world to visualise
 
@@ -47,7 +47,18 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 	DrawDebugLine(GetWorld(), ViewPointLocation, LineTraceEnd, FColor(255, 0, 0), false, 0 ,0, 10);
 
 	// Ray-cast to reach distance
+	FHitResult LineTraceHitResult;
+	FCollisionQueryParams CollisionQueryParams(FName(TEXT("")), false, GetOwner());
 
+	GetWorld()->LineTraceSingleByObjectType(OUT LineTraceHitResult, ViewPointLocation, LineTraceEnd, FCollisionObjectQueryParams(
+		ECC_PhysicsBody), CollisionQueryParams);
 	// See what we hit
+	auto ActorHit = LineTraceHitResult.GetActor();
+
+	if (ActorHit) {
+		UE_LOG(LogTemp, Warning, TEXT("Hit %s"), *(ActorHit->GetName()));
+	}
+
+	
 }
 
