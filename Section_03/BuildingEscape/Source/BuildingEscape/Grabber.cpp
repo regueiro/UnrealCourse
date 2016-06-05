@@ -58,18 +58,43 @@ void UGrabber::Grab()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Grab key pressed"));
 
-	auto Body = GetFirstPysicsBodyInReach();
+	auto HitResult = GetFirstPysicsBodyInReach();
+	auto ComponentToGrab = HitResult.GetComponent();
+	auto ActorHit = HitResult.GetActor();
+
+	if (ActorHit) {
+		PhysicsHandle->GrabComponent(ComponentToGrab, NAME_None, ComponentToGrab->GetOwner()->GetActorLocation(), true);
+	}
+
+	
 }
 
 void UGrabber::Release()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Grab key released"));
+
+	PhysicsHandle->ReleaseComponent();
 }
 
 // Called every frame
 void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );	
+
+	if (PhysicsHandle->GrabbedComponent) {
+		// Get player viewpoint
+		FVector ViewPointLocation;
+		FRotator ViewPointRotation;
+
+		GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT ViewPointLocation, OUT ViewPointRotation);
+
+		//UE_LOG(LogTemp, Warning, TEXT("Location %s, Rotation %s"), *ViewPointLocation.ToString(), *ViewPointRotation.ToString());
+
+		// Draw a red trace in the world to visualise
+
+		FVector LineTraceEnd = ViewPointLocation + ViewPointRotation.Vector()* Reach;
+		PhysicsHandle->SetTargetLocation(LineTraceEnd);
+	}
 }
 
 const FHitResult UGrabber::GetFirstPysicsBodyInReach()
