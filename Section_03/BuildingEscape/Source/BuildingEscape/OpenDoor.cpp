@@ -32,12 +32,6 @@ void UOpenDoor::CloseDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
-
-	auto PlayerController = GetWorld()->GetFirstPlayerController();
-	
-	if (PlayerController) {
-		Pawn = PlayerController->GetPawn();
-	}
 }
 
 
@@ -46,8 +40,7 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
-	if (PressurePlate->IsOverlappingActor(Pawn))
-	{
+	if(GetTotalMassOfActorsOnPlate() > 50.f) {
 		OpenDoor();
 	}
 
@@ -55,5 +48,17 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 	{
 		CloseDoor();
 	}
+}
+
+float UOpenDoor::GetTotalMassOfActorsOnPlate()
+{
+	float TotalMass = 0.f;
+
+	TArray<AActor*> OverlappingActors;
+
+	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
+
+
+	return TotalMass;
 }
 

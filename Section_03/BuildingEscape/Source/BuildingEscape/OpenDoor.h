@@ -36,7 +36,7 @@ private:
 
 	float LastDoorOpenTime;
 
-	APawn* Pawn;
-
 	AActor* Owner;
+
+	float GetTotalMassOfActorsOnPlate();
 };
