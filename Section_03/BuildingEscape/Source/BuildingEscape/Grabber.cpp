@@ -22,24 +22,34 @@ void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty!"));
+	FindPhysicsComponent();
 
-	// Look for attached Physics Handle
+	SetupInputComponent();
+}
+
+// Look for attached Physics Handle
+void UGrabber::FindPhysicsComponent()
+{
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
 
 	if (PhysicsHandle) {
-		
-	} else {
+
+	}
+	else {
 		UE_LOG(LogTemp, Error, TEXT("%s missing PhysicsHandleComponent"), *GetOwner()->GetName());
 	}
+}
 
-	// Look for attached Input Component
+// Look for attached Input Component
+void UGrabber::SetupInputComponent()
+{
 	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
 
 	if (InputComponent) {
 		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
 		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
-	} else {
+	}
+	else {
 		UE_LOG(LogTemp, Error, TEXT("%s missing InputComponent"), *GetOwner()->GetName());
 	}
 }
@@ -47,6 +57,8 @@ void UGrabber::BeginPlay()
 void UGrabber::Grab()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Grab key pressed"));
+
+	auto Body = GetFirstPysicsBodyInReach();
 }
 
 void UGrabber::Release()
@@ -57,8 +69,11 @@ void UGrabber::Release()
 // Called every frame
 void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
 {
-	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
+	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );	
+}
 
+const FHitResult UGrabber::GetFirstPysicsBodyInReach()
+{
 	// Get player viewpoint
 	FVector ViewPointLocation;
 	FRotator ViewPointRotation;
@@ -71,7 +86,7 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 
 	FVector LineTraceEnd = ViewPointLocation + ViewPointRotation.Vector()* Reach;
 
-	DrawDebugLine(GetWorld(), ViewPointLocation, LineTraceEnd, FColor(255, 0, 0), false, 0 ,0, 10);
+	DrawDebugLine(GetWorld(), ViewPointLocation, LineTraceEnd, FColor(255, 0, 0), false, 0, 0, 10);
 
 	// Ray-cast to reach distance
 	FHitResult LineTraceHitResult;
@@ -86,6 +101,6 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 		UE_LOG(LogTemp, Warning, TEXT("Hit %s"), *(ActorHit->GetName()));
 	}
 
-	
+	return LineTraceHitResult;
 }
 
