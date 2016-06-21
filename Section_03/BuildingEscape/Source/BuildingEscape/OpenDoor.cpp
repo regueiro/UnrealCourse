@@ -18,6 +18,7 @@ UOpenDoor::UOpenDoor()
 
 void UOpenDoor::OpenDoor()
 {
+	if (!Owner) { return; }
 	Owner->SetActorRotation(FRotator(0.0f, OpenAngle, 0.0f));
 
 	LastDoorOpenTime = GetWorld()->GetTimeSeconds();
@@ -25,6 +26,7 @@ void UOpenDoor::OpenDoor()
 
 void UOpenDoor::CloseDoor()
 {	
+	if (!Owner) { return; }
 	Owner->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
 }
 
@@ -56,6 +58,7 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate()
 
 	TArray<AActor*> OverlappingActors;
 
+	if (!PressurePlate) { return 0.f; }
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 
 	for (const auto& Actor : OverlappingActors) {
