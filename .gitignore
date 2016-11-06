@@ -256,3 +256,4 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 /Slides
+*.VC.db

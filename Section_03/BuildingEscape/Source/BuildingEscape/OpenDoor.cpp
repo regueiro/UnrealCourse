@@ -15,20 +15,6 @@ UOpenDoor::UOpenDoor()
 	Owner = GetOwner();
 }
 
-
-void UOpenDoor::OpenDoor()
-{
-	OnOpenRequest.Broadcast();
-
-	LastDoorOpenTime = GetWorld()->GetTimeSeconds();
-}
-
-void UOpenDoor::CloseDoor()
-{	
-	if (!Owner) { return; }
-	Owner->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
-}
-
 // Called when the game starts
 void UOpenDoor::BeginPlay()
 {
@@ -41,13 +27,10 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
-	if(GetTotalMassOfActorsOnPlate() > 30.f) {
-		OpenDoor();
-	}
-
-	if ((GetWorld()->GetTimeSeconds() - LastDoorOpenTime) > DoorCloseDelay)
-	{
-		CloseDoor();
+	if(GetTotalMassOfActorsOnPlate() > TriggerMass) {
+		OnOpen.Broadcast();
+	} else {
+		OnClose.Broadcast();
 	}
 }
 
